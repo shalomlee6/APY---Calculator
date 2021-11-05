@@ -1,7 +1,7 @@
+
 .container {
     width: 100%;
-    display: flex;
-    justify-content: flex-end;
+ 
 }
 
 .title {
@@ -15,8 +15,7 @@
     color: #A3A3A3;
 }
 .inputFormatValue {
-    display: flex;
-    justify-content: end;
+
     margin-right: 45px;
 }
 
@@ -24,4 +23,3 @@
     display: flex;
     justify-content: flex-end;
 }
-
