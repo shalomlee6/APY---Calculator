@@ -1,0 +1,9 @@
+.container {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.switch {
+    display: flex;
+    justify-content: center;
+}

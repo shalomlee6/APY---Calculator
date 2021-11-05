@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react'
+import Button from '@mui/material/Button';
 
-function App() {
+import { Navbar, Calculator, Footer} from './components';
+
+ const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <div className="content">
+        <Calculator />
+        <Button variant="contained">Connect Meta Mask</Button>
+      </div>
+      <Footer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+//options = [{value: 1, label: '1 Day'}, {value: 7, label: '7 Days'}, ...]
+//onChange=(selectedItem) => {...}

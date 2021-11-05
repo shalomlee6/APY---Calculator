@@ -1,0 +1,27 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title {
+    display: flex;
+    justify-content: flex-end;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #A3A3A3;
+}
+.inputFormatValue {
+    display: flex;
+    justify-content: end;
+    margin-right: 45px;
+}
+
+.alignLable {
+    display: flex;
+    justify-content: flex-end;
+}
+

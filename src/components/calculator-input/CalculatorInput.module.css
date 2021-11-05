@@ -1,0 +1,19 @@
+.input {
+    width: 100%;
+    direction: rtl;
+}
+
+.alignLable {
+    margin-left: 90%;
+}
+
+.inputBottom {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.inputFormatValue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

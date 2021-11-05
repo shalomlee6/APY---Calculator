@@ -1,0 +1,11 @@
+.siteFooter{
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+    background-color: rgb(255, 240, 55);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
