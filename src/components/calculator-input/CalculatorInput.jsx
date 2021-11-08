@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import CalculatorInputCss from './CalculatorInput.module.css'
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import ToogleButtonsList from '../toggle-buttons-list/ToogleButtonsList'
-import EventEmitter from '../../utils/EventEmitter.utils'
+
 import  * as Constants from '../../config/Constants';
 import Web3 from 'web3';
 
@@ -21,7 +21,7 @@ const CalculatorInput = (props) => {
   let cakeToken = Number(props.cakeToken);
   const[usd, setUsd] = React.useState('')
   const[cake, setCake] = React.useState('')
-  const[isActive, setIsActive] = React.useState(isCakeToken)
+  const[isActive] = React.useState(isCakeToken)
 
   const handleChange = () => (event) => {
     
@@ -47,6 +47,7 @@ const CalculatorInput = (props) => {
       let cakeValue = Number(val.substring(1)) 
       cakeValue *= cakeToken
       setCake(cakeValue)
+      props.inputValue(cakeValue);
     }
   }
 
@@ -91,44 +92,6 @@ const CalculatorInput = (props) => {
     // console.log(format);
   }
   
-  //SwitchEvent
-  useEffect( () => {
-
-    const onSwitchEvent = (e) => {
-      triggerSwitchEvent(e)
-    }
-
-    const onToggleButtonClick = (e) => {
-      triggerToggleButtonClick(e)
-    }
-
-    const switchListener = EventEmitter.addListener('SwitchEvent', onSwitchEvent );
-    const buttonToggleListener = EventEmitter.addListener('toggleButtonEvent', onToggleButtonClick );
-
-    return () => {
-      switchListener.remove()
-      buttonToggleListener.remove()
-    }
-  });
-
-  const triggerSwitchEvent = (e) => {
-    setIsActive(e)
-  }
-
-  const triggerToggleButtonClick = (val) => {
-    //set value of 100$ cake
-    
-    if(val === Constants.CALCULATOR_INPUT_BUTTONS_SHEET[0]) {
-      console.log(val)
-      
-    }else {
-      let cakeValue = Number(val.substring(1)) 
-      cakeValue *= cakeToken
-      setCake(cakeValue)
-      console.log(val + "**********************")
-    }
-  }
-
   const calcInputValue = () => {
     return isCakeToken ? cake : usd;
   }

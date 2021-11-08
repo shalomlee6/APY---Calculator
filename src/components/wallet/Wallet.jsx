@@ -4,10 +4,8 @@ import Button from '@mui/material/Button';
 
 const Wallet = (props) => {
 
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [defaultAccount, setDefaultAccount] = useState(null);
     const [userBalance, setUserBalance] = useState(null);
-    const [connectButtonText, setconnectButtonText] = useState('Connect Wallet');
+    const [defaultAccount, setDefaultAccount] = useState(null);
 
     const connectWalletHandler = () => {
         if(window.ethereum) {
@@ -15,9 +13,7 @@ const Wallet = (props) => {
             .then( res => {
                 accountChangeHandler(res[0]);
             })
-        } else {
-            setErrorMessage('Please Install Meta Maks')
-        }
+        } 
     }
 
     const accountChangeHandler = (newAccount) => {
@@ -45,6 +41,7 @@ const Wallet = (props) => {
                     <h3>User Balance: {userBalance}</h3>
                 </div>
             </div>
+
         </div>
     )
 }
