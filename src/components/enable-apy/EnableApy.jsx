@@ -19,16 +19,22 @@ const GreenSwitch = styled(Switch)(({ theme }) => ({
   
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-const EnableApy = () => {
+const EnableApy = (props) => {
+
+    const { isSelected, onEnableAPY }  = props;
+
     return (
         <div>
             <div className={ EnableApyCss.container }>
 
             <h4>Enable Accelerated APY</h4>
-            <div className={EnableApyCss.switch} >
+                <div className={EnableApyCss.switch} >
 
-                <GreenSwitch {...label} defaultChecked />
-            </div>
+                    <GreenSwitch 
+                    {...label} 
+                    checked={ isSelected }
+                    onChange={ onEnableAPY } />
+                </div>
             </div>
         </div>
     )

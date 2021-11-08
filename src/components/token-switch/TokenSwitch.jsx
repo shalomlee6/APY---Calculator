@@ -5,7 +5,8 @@ import Switch from '@mui/material/Switch';
 import cakeToken from '../../assets/img/cake_token.png'
 import TokenSwitchCss from './TokenSwitch.module.css'
 
-const GreenSwitch = styled(Switch)(({ theme }) => ({
+
+  const GreenSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
       color: "#fff",
        
@@ -18,22 +19,11 @@ const GreenSwitch = styled(Switch)(({ theme }) => ({
     },
   }));
   
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-const TokenSwitch = () => {
+const TokenSwitch = (props) => {
 
-    const [value, setValue] = React.useState({
-      active: false 
-    });
-
-    const handleChange = (prop) => (event) => {
-      setValue({ value, [prop]: !!event.target.value });
-      if(event.target.value) {
-        // Fire Change Event 
-      } else {
-        // Fire Change Event 
-      }
-     };
+    const { isCakeToken, onChange }  = props;
 
     return (
         <div className={ TokenSwitchCss.container } >
@@ -41,9 +31,8 @@ const TokenSwitch = () => {
             <p>Cake</p>
             <GreenSwitch 
             {...label}
-             defaultChecked
-             value={value.active}
-             onChange={handleChange('active')} />
+            checked={ isCakeToken }
+             onChange={ onChange } />
             <p>USD</p>
         </div>
     )

@@ -12,10 +12,25 @@ import EnableApy from '../enable-apy/EnableApy';
 import TierLevel from '../tier-level/TierLevel';
 import RoiReturn from '../roi-return/RoiReturn'
 import Details from '../show-details/Details';
+import * as ROI from '../../utils/ROI.utils'
 import * as Constants from '../../config/Constants';
 
-const Calculator = () => {
+
+const triggerTimeFrameChange = (T) => {
+    
+    let ROIinUSD = ROI.getROIinUSD(T)
+}
+
+const Calculator = (props) => {
+
+    const {walletAddress} = props
+    let bnbTokenPrice = props.bnbTokenPrice;
+    let cakeTokenPrice = props.cakeTokenPrice;
     const [open, setOpen] = React.useState(false);
+    const [isCakeToken, setIsCakeToken] = React.useState(true)
+    const [isTierClicke, setisTierClicke] = React.useState(false)
+    const [showTierSelect, setShowTierSelect] = React.useState(false)
+    const [isAPYAccelerated, setAPYAccelerated] = React.useState(false)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -24,6 +39,29 @@ const Calculator = () => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleSwitchClick = (isChecked) => {
+        setIsCakeToken(!isCakeToken)
+    };
+
+    const onTimeFrameChange = (T) => {
+        triggerTimeFrameChange(T)
+    }
+
+    const onTierClick = () => {
+        setisTierClicke(!isTierClicke)
+    }
+
+    const onEnableAPY = () => {
+        if(isAPYAccelerated === false &&  isTierClicke === false) {
+            setShowTierSelect(!showTierSelect)
+        } else if(isAPYAccelerated === true &&  isTierClicke === false) {
+            setShowTierSelect(!showTierSelect)
+        }
+        setAPYAccelerated(!isAPYAccelerated)
+
+    }
+
     return (
         <div className={CalculatorCss.container}>
 
@@ -34,11 +72,20 @@ const Calculator = () => {
                 <DialogTitle style={{ fontWeight: 'bold' }} >Calculator</DialogTitle>
                 <DialogContent>
 
-                    <TokenSwitch />
-                    <CalculatorInput inputList={Constants.CALCULATOR_INPUT_BUTTONS_SHEET} />
-                    <Timeframe inputList={Constants.TIMEFRAME_INPUT_BUTTONS_SHEET}/>
-                    <EnableApy />
-                    <TierLevel inputList={Constants.TIER_LEVEL_INPUT_BUTTONS_SHEET}/>
+                    <TokenSwitch isCakeToken={ isCakeToken } onChange={ (a) => handleSwitchClick(a) } />
+                    <CalculatorInput 
+                    walletAddress = {props.walletAddress}
+                    cakeToken={ props.cakeTokenPrice}
+                    bnbToken={ props.bnbTokenPrice}
+                    isCakeToken={isCakeToken}
+                   
+                    inputList={Constants.CALCULATOR_INPUT_BUTTONS_SHEET} />
+                    <Timeframe onTimeFrameChange={onTimeFrameChange} inputList={Constants.TIMEFRAME_INPUT_BUTTONS_SHEET}/>
+                    
+                    <EnableApy isSelected={isAPYAccelerated} onEnableAPY={ (a) => onEnableAPY(a)} />
+                    {showTierSelect ? <TierLevel isActive={!isAPYAccelerated} onTierClick={onTierClick} inputList={Constants.TIER_LEVEL_INPUT_BUTTONS_SHEET}/> 
+                    : null}
+                    
                     <RoiReturn />
 
                 </DialogContent>
@@ -53,6 +100,8 @@ const Calculator = () => {
             </Dialog>
         </div>
     )
+
+
 
 
 }

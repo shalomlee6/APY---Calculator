@@ -21,14 +21,9 @@ html, body, #app, #app>div {
 }
 
 .content {
+  height: 300px;
+  margin-top: 20%;
   display: grid;
-  gap: 25%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
- 
 }
 
 .MuiPaper-root {
