@@ -18,7 +18,7 @@ import * as Constants from '../../config/Constants';
 
 const triggerTimeFrameChange = (T) => {
     
-    let ROIinUSD = ROI.getROIinUSD(T)
+    // let ROIinUSD = ROI.getROIinUSD(T)
 }
 
 const Calculator = (props) => {
@@ -26,7 +26,12 @@ const Calculator = (props) => {
     const {walletAddress} = props
     let bnbTokenPrice = props.bnbTokenPrice;
     let cakeTokenPrice = props.cakeTokenPrice;
+
     const [open, setOpen] = React.useState(false);
+    const [usdValue, setUsdValue] = React.useState(0);
+    const [tierLevel, setTierLevel] = React.useState('');
+    const [inputValue, setInputValue] = React.useState('');
+    const [timeFrame, setTimeFrame] = React.useState('1 Day');
     const [isCakeToken, setIsCakeToken] = React.useState(true)
     const [isTierClicke, setisTierClicke] = React.useState(false)
     const [showTierSelect, setShowTierSelect] = React.useState(false)
@@ -45,10 +50,13 @@ const Calculator = (props) => {
     };
 
     const onTimeFrameChange = (T) => {
-        triggerTimeFrameChange(T)
+        setTimeFrame(T)
+        // triggerTimeFrameChange(T)
+        // let ROIinUSD = ROI.getROIinUSD(T ,usdValue);
     }
 
-    const onTierClick = () => {
+    const onTierClick = (value) => {
+        setTierLevel(value)
         setisTierClicke(!isTierClicke)
     }
 
@@ -59,7 +67,22 @@ const Calculator = (props) => {
             setShowTierSelect(!showTierSelect)
         }
         setAPYAccelerated(!isAPYAccelerated)
+    }
 
+    const onInput = (value) => {
+        let ROIinUSD = 0
+        let inputNumber = Number(value)
+        let cakeTokenPrice = Number(props.cakeTokenPrice);
+
+        if(isTierClicke) {
+            ROIinUSD = ROI.getROIinUSDWithExtraAPY(timeFrame,cakeTokenPrice*inputNumber,tierLevel);
+        } else {
+            ROIinUSD = ROI.getROIinUSD(timeFrame,cakeTokenPrice*inputNumber);
+        }
+        setInputValue(ROIinUSD)
+    }
+    const onUsdValue = (value) => {
+        setUsdValue(value)
     }
 
     return (
@@ -74,6 +97,8 @@ const Calculator = (props) => {
 
                     <TokenSwitch isCakeToken={ isCakeToken } onChange={ (a) => handleSwitchClick(a) } />
                     <CalculatorInput 
+                    inputValue={onInput}
+                    usdValue = {onUsdValue}
                     walletAddress = {props.walletAddress}
                     cakeToken={ props.cakeTokenPrice}
                     bnbToken={ props.bnbTokenPrice}
@@ -83,10 +108,9 @@ const Calculator = (props) => {
                     <Timeframe onTimeFrameChange={onTimeFrameChange} inputList={Constants.TIMEFRAME_INPUT_BUTTONS_SHEET}/>
                     
                     <EnableApy isSelected={isAPYAccelerated} onEnableAPY={ (a) => onEnableAPY(a)} />
-                    {showTierSelect ? <TierLevel isActive={!isAPYAccelerated} onTierClick={onTierClick} inputList={Constants.TIER_LEVEL_INPUT_BUTTONS_SHEET}/> 
-                    : null}
+                    {showTierSelect ? <TierLevel isActive={!isAPYAccelerated} onTierClick={onTierClick} inputList={Constants.TIER_LEVEL_INPUT_BUTTONS_SHEET}/> : null}
                     
-                    <RoiReturn />
+                    <RoiReturn inputValue={ inputValue } />
 
                 </DialogContent>
                 <DialogActions>

@@ -8,7 +8,14 @@ import Edit from '@mui/icons-material/Edit';
 import FormHelperText from '@mui/material/FormHelperText';
 
 
-const RoiReturn = () => {
+const RoiReturn = (props) => {
+
+    const {inputValue} = props;
+    const [isEditClicked, setIsEditClicked] = React.useState(true)
+    const onEdit = () => {
+        setIsEditClicked(!isEditClicked)
+    }
+
     return (
         <div>
             <p className={ RoiReturnCss.title } >ROI at Current Rates</p>
@@ -19,18 +26,22 @@ const RoiReturn = () => {
                     <FormControl className={ RoiReturnCss.container} variant="standard">
 
                         <OutlinedInput
-                        type="number"
-                        // value={values.cake}
-                        startAdornment={
-                            <InputAdornment position="start">
-                            <Edit />
-                            </InputAdornment>
-                        }
-                        aria-describedby="filled-weight-helper-text"
-                    />
-                    <div className={ RoiReturnCss.inputFormatValue }>
-                        <FormHelperText className={RoiReturnCss.alignLable}>{0}</FormHelperText>
-                    </div>
+                            type="number"
+                            disabled={isEditClicked}
+                            value={ inputValue }
+                            inputProps={{'aria-label': {inputValue}}}
+                            
+                            startAdornment={
+                                <InputAdornment position="start" onClick={onEdit}>
+                                <Edit  />
+                                </InputAdornment>
+                            }
+                            aria-describedby="filled-weight-helper-text"
+                        />
+                        
+                        <div className={ RoiReturnCss.inputFormatValue }>
+                            <FormHelperText className={RoiReturnCss.alignLable}>{0}</FormHelperText>
+                        </div>
                     </FormControl>
                     
     

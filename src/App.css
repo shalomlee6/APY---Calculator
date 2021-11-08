@@ -30,3 +30,6 @@ html, body, #app, #app>div {
   min-width: 600px;
 }
 
+.css-1o9s3wi-MuiInputBase-input-MuiOutlinedInput-input {
+  direction: rtl;
+}

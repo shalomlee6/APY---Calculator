@@ -7,7 +7,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import ToogleButtonsList from '../toggle-buttons-list/ToogleButtonsList'
 import EventEmitter from '../../utils/EventEmitter.utils'
 import  * as Constants from '../../config/Constants';
-import {ethers} from 'ethers';
 import Web3 from 'web3';
 
 
@@ -18,22 +17,23 @@ const CalculatorInput = (props) => {
 
   const {isCakeToken} = props;
   const { walletAddress } = props;
-  let bnbToken  = Number(props.bnbToken);
+ 
   let cakeToken = Number(props.cakeToken);
   const[usd, setUsd] = React.useState('')
   const[cake, setCake] = React.useState('')
   const[isActive, setIsActive] = React.useState(isCakeToken)
 
   const handleChange = () => (event) => {
-
     inputNum = Number(event.target.value);
+    props.inputValue(event.target.value);
+    props.usdValue(inputNum * cakeToken )
     if(isActive) {
       
-      inputLAble = inputNum * 3.22;
+      inputLAble = inputNum * cakeToken;
       setCake(inputNum)
       setUsd(inputLAble)
     } else {
-      inputLAble = inputNum * 3.22;
+      inputLAble = inputNum * cakeToken;
       setCake(inputLAble)
       setUsd(inputNum)
     }
@@ -43,13 +43,10 @@ const CalculatorInput = (props) => {
     if(val === Constants.CALCULATOR_INPUT_BUTTONS_SHEET[0]) {
       
       getUserCakeBalance()
-      
-      console.log(val)
     }else {
       let cakeValue = Number(val.substring(1)) 
       cakeValue *= cakeToken
       setCake(cakeValue)
-      console.log(val + "**********************")
     }
   }
 

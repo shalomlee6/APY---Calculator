@@ -32,7 +32,7 @@ const ToogleButtonsList = (props) => {
                 exclusive
                 disabled={isActive}
                 onChange={handleChange}>
-                { list.map(el => <ToggleButton key={el} value={ el }>{el}</ToggleButton>) }
+                { list.map(el =>  <ToggleButton key={el} value={ el }>{el}</ToggleButton>) }
             </ToggleButtonGroup>
         </div>
     )
