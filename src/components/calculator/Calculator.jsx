@@ -15,20 +15,9 @@ import Details from '../show-details/Details';
 import * as ROI from '../../utils/ROI.utils'
 import * as Constants from '../../config/Constants';
 
-
-const triggerTimeFrameChange = (T) => {
-    
-    // let ROIinUSD = ROI.getROIinUSD(T)
-}
-
 const Calculator = (props) => {
 
-    const {walletAddress} = props
-    let bnbTokenPrice = props.bnbTokenPrice;
-    let cakeTokenPrice = props.cakeTokenPrice;
-
     const [open, setOpen] = React.useState(false);
-    const [usdValue, setUsdValue] = React.useState(0);
     const [tierLevel, setTierLevel] = React.useState('');
     const [inputValue, setInputValue] = React.useState('');
     const [timeFrame, setTimeFrame] = React.useState('1 Day');
@@ -51,8 +40,6 @@ const Calculator = (props) => {
 
     const onTimeFrameChange = (T) => {
         setTimeFrame(T)
-        // triggerTimeFrameChange(T)
-        // let ROIinUSD = ROI.getROIinUSD(T ,usdValue);
     }
 
     const onTierClick = (value) => {
@@ -81,9 +68,7 @@ const Calculator = (props) => {
         }
         setInputValue(ROIinUSD)
     }
-    const onUsdValue = (value) => {
-        setUsdValue(value)
-    }
+
 
     return (
         <div className={CalculatorCss.container}>
@@ -98,7 +83,6 @@ const Calculator = (props) => {
                     <TokenSwitch isCakeToken={ isCakeToken } onChange={ (a) => handleSwitchClick(a) } />
                     <CalculatorInput 
                     inputValue={onInput}
-                    usdValue = {onUsdValue}
                     walletAddress = {props.walletAddress}
                     cakeToken={ props.cakeTokenPrice}
                     bnbToken={ props.bnbTokenPrice}
@@ -110,7 +94,7 @@ const Calculator = (props) => {
                     <EnableApy isSelected={isAPYAccelerated} onEnableAPY={ (a) => onEnableAPY(a)} />
                     {showTierSelect ? <TierLevel isActive={!isAPYAccelerated} onTierClick={onTierClick} inputList={Constants.TIER_LEVEL_INPUT_BUTTONS_SHEET}/> : null}
                     
-                    <RoiReturn inputValue={ inputValue } />
+                    <RoiReturn inputValue={ inputValue } cakeTokenPrice={props.cakeTokenPrice} />
 
                 </DialogContent>
                 <DialogActions>

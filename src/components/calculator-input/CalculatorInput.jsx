@@ -24,9 +24,9 @@ const CalculatorInput = (props) => {
   const[isActive, setIsActive] = React.useState(isCakeToken)
 
   const handleChange = () => (event) => {
+    
     inputNum = Number(event.target.value);
     props.inputValue(event.target.value);
-    props.usdValue(inputNum * cakeToken )
     if(isActive) {
       
       inputLAble = inputNum * cakeToken;

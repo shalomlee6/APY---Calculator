@@ -11,6 +11,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 const RoiReturn = (props) => {
 
     const {inputValue} = props;
+    const cakeTokenPrice = Number(props.cakeTokenPrice);
     const [isEditClicked, setIsEditClicked] = React.useState(true)
     const onEdit = () => {
         setIsEditClicked(!isEditClicked)
@@ -40,7 +41,7 @@ const RoiReturn = (props) => {
                         />
                         
                         <div className={ RoiReturnCss.inputFormatValue }>
-                            <FormHelperText className={RoiReturnCss.alignLable}>{0}</FormHelperText>
+                            <FormHelperText className={RoiReturnCss.alignLable}>{ inputValue !== '' ? cakeTokenPrice/inputValue + 'Cake' : ''}</FormHelperText>
                         </div>
                     </FormControl>
                     
