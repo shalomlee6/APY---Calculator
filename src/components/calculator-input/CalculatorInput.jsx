@@ -45,7 +45,7 @@ const CalculatorInput = (props) => {
       getUserCakeBalance()
     }else {
       let cakeValue = Number(val.substring(1)) 
-      cakeValue *= cakeToken
+      cakeValue /= cakeToken
       setCake(cakeValue)
       props.inputValue(cakeValue);
     }
